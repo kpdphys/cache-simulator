@@ -22,9 +22,6 @@ jobs:
       - name: Install poetry
         run: pip install poetry
 
-      - name: Install dependencies
-        run: poetry install
-
       - name: Install semantic-release
         run: poetry run pip install python-semantic-release
 
