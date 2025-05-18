@@ -60,5 +60,6 @@ testpaths = ["tests"]
 
 [tool.semantic_release]
 version_source = "pyproject.toml"
+tag_format = "v{version}"
 branch = "main"
 changelog_file = "CHANGELOG.md"
