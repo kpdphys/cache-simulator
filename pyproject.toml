@@ -10,14 +10,14 @@ requires-python = ">=3.13"
 
 # Core runtime dependencies
 dependencies = [
-  "numpy (>=2.2.6,<3.0.0)",          # Fundamental package for array computing
-  "torch (>=2.7.0,<3.0.0)",          # Tensors and Dynamic neural networks
-  "PyYAML (>=6.0.2,<7.0.0)",         # YAML parser and emitter
-  "dvc (>=3.59.2,<4.0.0)",           # Tool to manage code and data together
-  "python-dotenv (>=1.1.0,<2.0.0)",  # Set key-value pairs from a .env file
-  "deepspeed (>=0.16.8,<1.0.0)",     # DeepSpeed library
-  "mlflow (>=2.22.0,<3.0.0)",        # A platform for the complete ML lifecycle
-  "dagshub (>=0.5.10,<1.0.0)",       # DagsHub client libraries
+  "numpy (>=2.2.6,<3.0.0)",         # Fundamental package for array computing
+  "torch (>=2.7.0,<3.0.0)",         # Tensors and Dynamic neural networks
+  "PyYAML (>=6.0.2,<7.0.0)",        # YAML parser and emitter
+  "dvc (>=3.59.2,<4.0.0)",          # Tool to manage code and data together
+  "python-dotenv (>=1.1.0,<2.0.0)", # Set key-value pairs from a .env file
+  "deepspeed (>=0.16.8,<1.0.0)",    # DeepSpeed library
+  "mlflow (>=2.22.0,<3.0.0)",       # A platform for the complete ML lifecycle
+  "dagshub (>=0.5.10,<1.0.0)",      # DagsHub client libraries
 ]
 
 [tool.poetry]
@@ -29,25 +29,25 @@ version = "0.0.0"
 optional = true
 
 [tool.poetry.group.special.dependencies]
-causal-conv1d = ">=1.5.0,<2.0.0"     # Causal depthwise conv1d in CUDA
-mamba-ssm = ">=2.2.4,<3.0.0"         # Mamba state-space model
-mpi4py = ">=4.0.3,<5.0.0"            # Python bindings for MPI
+causal-conv1d = ">=1.5.0,<2.0.0" # Causal depthwise conv1d in CUDA
+mamba-ssm = ">=2.2.4,<3.0.0"     # Mamba state-space model
+mpi4py = ">=4.0.3,<5.0.0"        # Python bindings for MPI
 
 # Optional group of development dependencies
 [tool.poetry.group.dev]
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-ruff = ">=0.11.10,<1.0.0"            # Python linter and code formatter
-mypy = ">=1.15.0,<2.0.0"             # Optional static typing for Python
-pytest = ">=8.3.5,<9.0.0"            # A powerful testing framework
-pytest-mock = ">=3.14.0,<4.0.0"      # Mocking for pytest
-coverage = ">=7.8.1,<8.0.0"          # Code coverage measurement tool
-pytest-cov = ">=6.1.1,<7.0.0"        # Pytest plugin for coverage.py integration
-bandit = ">=1.8.3,<2.0.0"            # Security oriented static analyser
-pre-commit = ">=4.2.0,<5.0.0"        # Pre-commit hook management
-detect-secrets = ">=1.5.0,<2.0.0"    # Tool for detecting secrets in the codebase
-python-semantic-release = ">=9.21.1,<10.0.0"  # Automatic Semantic Versioning
+ruff = ">=0.11.10,<1.0.0"                    # Python linter and code formatter
+mypy = ">=1.15.0,<2.0.0"                     # Optional static typing for Python
+pytest = ">=8.3.5,<9.0.0"                    # A powerful testing framework
+pytest-mock = ">=3.14.0,<4.0.0"              # Mocking for pytest
+coverage = ">=7.8.1,<8.0.0"                  # Code coverage measurement tool
+pytest-cov = ">=6.1.1,<7.0.0"                # Pytest plugin for coverage.py integration
+bandit = ">=1.8.3,<2.0.0"                    # Security oriented static analyser
+pre-commit = ">=4.2.0,<5.0.0"                # Pre-commit hook management
+detect-secrets = ">=1.5.0,<2.0.0"            # Tool for detecting secrets in the codebase
+python-semantic-release = ">=9.21.1,<10.0.0" # Automatic Semantic Versioning
 
 [build-system]
 # Poetry-specific build backend
@@ -79,11 +79,21 @@ changelog_file = "CHANGELOG.md"
 
 # List of plugins to manage the release process
 plugins = [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/changelog",
-    ["@semantic-release/git", {"assets" = ["pyproject.toml", "CHANGELOG.md"], "message" = "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"}],
-    ["@semantic-release/github", {"successComment" = false, "failComment" = false, "releasedLabels" = false, "assets" = []}]
+  "@semantic-release/commit-analyzer",
+  "@semantic-release/release-notes-generator",
+  "@semantic-release/changelog",
+  [
+    "@semantic-release/git",
+    { "assets" = [
+      "pyproject.toml",
+      "CHANGELOG.md",
+    ], "message" = "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}" },
+  ],
+  [
+    "@semantic-release/github",
+    { "successComment" = false, "failComment" = false, "releasedLabels" = false, "assets" = [
+    ] },
+  ],
 ]
 
 [tool.mypy]
@@ -150,13 +160,7 @@ branch = true
 data_file = "/tmp/coverage_data"
 
 # Omit test files and virtual environments from coverage measurement
-omit = [
-  "*/tests/*",
-  "*/test_*.py",
-  "*/*_test.py",
-  "*/venv/*",
-  "*/.venv/*"
-]
+omit = ["*/tests/*", "*/test_*.py", "*/*_test.py", "*/venv/*", "*/.venv/*"]
 
 [tool.coverage.report]
 # Fail if total coverage percentage is below 80%
