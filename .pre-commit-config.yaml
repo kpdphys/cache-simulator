@@ -7,6 +7,7 @@ repos:
       - id: check-json
       - id: check-toml
       - id: name-tests-test
+        args: ["--pytest-test-first"]
 
   # 2. detect-secrets: Scans for secrets in the codebase
   - repo: https://github.com/Yelp/detect-secrets
