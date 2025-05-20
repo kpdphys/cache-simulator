@@ -20,7 +20,8 @@ requirements:
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
-	find . -type d -name ".pytest_cache" -exec rm -rf {} +
+	find . -type d -name "*pytest_cache" -exec rm -rf {} +
+	find . -type d -name "*mypy_cache" -exec rm -rf {} +
 
 ## Lint using pylint, black, and isort (use `make format` to do formatting)
 .PHONY: lint
@@ -34,6 +35,16 @@ lint:
 format:
 	isort cache_simulator
 	black cache_simulator
+
+## Install pre-commit hooks
+.PHONY: hooks
+hooks:
+	poetry run pre-commit install -f --hook-type commit-msg --hook-type pre-commit
+
+## Generate baseline file for detect-secrets
+.PHONY: scan
+scan:
+	poetry run detect-secrets scan > .secrets.baseline
 
 ## Run tests
 .PHONY: test
