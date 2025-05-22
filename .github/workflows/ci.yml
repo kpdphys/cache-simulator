@@ -32,9 +32,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-poetry-
 
-      # 5. Install project dependencies, excluding the "special" group and root package
+      # 5. Install project dependencies, excluding the "special" group
       - name: Install dependencies
-        run: poetry install --without special --with dev --no-root
+        run: poetry install --without special --with dev
 
       # 6. Run ruff for linting
       - name: Lint checking
