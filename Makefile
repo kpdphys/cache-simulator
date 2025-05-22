@@ -10,35 +10,37 @@ PYTHON_INTERPRETER = python
 # COMMANDS                                                                      #
 #################################################################################
 
-## Install Python dependencies
-.PHONY: requirements
-requirements:
-	pip install -e .
-	
 ## Delete all compiled Python files
 .PHONY: clean
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
-	find . -type d -name ".pytest_cache" -exec rm -rf {} +
+	find . -type d -name "*pytest_cache" -exec rm -rf {} +
+	find . -type d -name "*mypy_cache" -exec rm -rf {} +
+	find . -type d -name "*ruff_cache" -exec rm -rf {} +
 
-## Lint using pylint, black, and isort (use `make format` to do formatting)
-.PHONY: lint
-lint:
-	pylint cache_simulator
-	isort --check --diff cache_simulator
-	black --check cache_simulator
+## Validate rules and format using pre-commit-hooks, ruff and mypy
+.PHONY: validate
+validate:
+	poetry run pre-commit run --all-files
 
-## Format source code with black
-.PHONY: format
-format:
-	isort cache_simulator
-	black cache_simulator
+## Install pre-commit hooks
+.PHONY: hooks
+hooks:
+	poetry run pre-commit autoupdate
+	poetry run pre-commit clean
+	poetry run pre-commit install
+	poetry run pre-commit install -f --hook-type commit-msg --hook-type pre-commit
+
+## Generate baseline file for detect-secrets
+.PHONY: scan
+scan:
+	poetry run detect-secrets scan > .secrets.baseline
 
 ## Run tests
 .PHONY: test
 test:
-	python -m pytest tests
+	poetry run pytest --cov
 
 ## Set up Python interpreter environment
 .PHONY: create_environment
