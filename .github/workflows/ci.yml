@@ -34,7 +34,7 @@ jobs:
 
       # 5. Install project dependencies, excluding the "special" group and root package
       - name: Install dependencies
-        run: poetry install --without special --no-root
+        run: poetry install --without special --with dev --no-root
 
       # 6. Run ruff for linting
       - name: Lint checking
