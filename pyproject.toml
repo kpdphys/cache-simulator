@@ -77,6 +77,12 @@ branch = "main"
 # File where changelog entries will be written
 changelog_file = "CHANGELOG.md"
 
+# Disable upload artefacts to GitHub Release
+upload_to_release = false
+
+# Disable build command
+build_command = false
+
 [tool.mypy]
 # Target Python version for type checking
 python_version = "3.13"
