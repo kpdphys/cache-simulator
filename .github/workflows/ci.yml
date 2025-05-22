@@ -54,7 +54,7 @@ jobs:
 
       # 8. Run mypy for static type checking
       - name: Run mypy
-        run: poetry run mypy --config-file=pyproject.toml
+        run: poetry run mypy --config-file=pyproject.toml $(find . -name "*.py" -o -name "*.pyi")
 
       # 9. Run pytest for unit tests
       - name: Run pytest
