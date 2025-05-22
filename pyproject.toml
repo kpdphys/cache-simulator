@@ -77,11 +77,14 @@ branch = "main"
 # File where changelog entries will be written
 changelog_file = "CHANGELOG.md"
 
-# Disable upload artefacts to GitHub Release
-upload_to_release = false
-
-# Disable build command
-build_command = false
+# List of plugins to manage the release process
+plugins = [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    ["@semantic-release/git", {"assets" = ["pyproject.toml", "CHANGELOG.md"], "message" = "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"}],
+    ["@semantic-release/github", {"successComment" = false, "failComment" = false, "releasedLabels" = false, "assets" = []}]
+]
 
 [tool.mypy]
 # Target Python version for type checking
