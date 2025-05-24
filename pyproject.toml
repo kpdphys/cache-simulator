@@ -65,36 +65,26 @@ minversion = "8.0"
 addopts = "-ra -q -v"
 
 [tool.semantic_release]
-# Use pyproject.toml as the single source of truth for version
-version_source = "pyproject.toml"
+# Use commit messages (Conventional Commits) to determine the next version.
+version_source = "commit"
 
-# Format used for Git tags
+# Automatically update the version in pyproject.toml at the specified location.
+version_variable = "pyproject.toml:version"
+
+# Format used to create git tags for new releases.
 tag_format = "v{version}"
 
-# The branch where releases are made from
+# The branch where releases should be made.
 branch = "main"
 
-# File where changelog entries will be written
+# The file where generated changelog entries from commits will be written.
 changelog_file = "CHANGELOG.md"
 
-# List of plugins to manage the release process
-plugins = [
-  "@semantic-release/commit-analyzer",
-  "@semantic-release/release-notes-generator",
-  "@semantic-release/changelog",
-  [
-    "@semantic-release/git",
-    { "assets" = [
-      "pyproject.toml",
-      "CHANGELOG.md",
-    ], "message" = "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}" },
-  ],
-  [
-    "@semantic-release/github",
-    { "successComment" = false, "failComment" = false, "releasedLabels" = false, "assets" = [
-    ] },
-  ],
-]
+# The command that builds your project before publishing (optional).
+# build_command = "poetry build"
+
+# Disable uploading to PyPI. Set to true if you want to publish the package.
+upload_to_pypi = false
 
 [tool.mypy]
 # Target Python version for type checking
