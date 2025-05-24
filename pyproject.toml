@@ -69,7 +69,7 @@ addopts = "-ra -q -v"
 version_source = "commit"
 
 # Automatically update the version in pyproject.toml at the specified location.
-version_variable = "pyproject.toml:version"
+version_variable = "pyproject.toml:tool.poetry.version"
 
 # Format used to create git tags for new releases.
 tag_format = "v{version}"
@@ -85,6 +85,9 @@ changelog_file = "CHANGELOG.md"
 
 # Disable uploading to PyPI. Set to true if you want to publish the package.
 upload_to_pypi = false
+
+# Add this line to specify the initial version when no tags are found
+initial_version = "0.1.0"
 
 [tool.mypy]
 # Target Python version for type checking
@@ -173,5 +176,3 @@ exclude_also = [
   # Don't complain about abstract methods, they aren't run:
   "@(abc\\.)?abstractmethod",
 ]
-
-#
